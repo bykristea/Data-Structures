@@ -1,6 +1,6 @@
-from doubly_linked_list import DoublyLinkedList
+import DoublyLinkedList from doubly_linked_list
 import sys
-sys.path.append('../doubly_linked_list/doubly_linked_list.py')
+sys.path.append('./doubly_linked_list.py')
 
 
 class Queue:

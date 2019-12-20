@@ -1,0 +1,42 @@
+What are the different operations we may want to do on data structures?
+    - Access Values
+    - Delete
+    - Insert
+    - Peek, Update
+    - Search
+
+
+    Class Node: has a 
+        - Value
+        - Next --> points to another Node that it links to 
+        - Previous-->points to previous Node
+
+        accessing values array vs linked list
+        runtime for array O(1)
+        runtime for Linked List O(n)
+
+        inserting into a list array vs linked list
+        runtime for array O(n)
+        runtime for Linked List O(1)
+
+        deleting into a list array vs linked list
+        runtime for array: O(n)
+        runtime for Linked List O(1) 
+
+        searching array vs linked list
+        runtime for array: O(n)
+        runtime for Linked List: O(n)
+
+    Linked List: pointers-->point to the next value forward. 
+    Double Linked List:--> point forward and backward so next and previous value
+        --what is my head and what is my tail?
+        -Head First Node
+        -Tail Last Node
+
+
+Queue --> FIFO-> adding to the tail and removing from the head
+Stack --> LIFO-> adding to the head and removing from the head
+
+
+Array: Adding to the front or back: O(n)
+Double Linked List adding O(1)
