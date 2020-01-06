@@ -1,3 +1,6 @@
+from doubly_linked_list import DoublyLinkedList
+
+
 class LRUCache:
     """
     Our LRUCache class keeps track of the max number of nodes it
@@ -6,9 +9,16 @@ class LRUCache:
     order, as well as a storage dict that provides fast access
     to every node stored in the cache.
     """
-    def __init__(self, limit=10):
-        pass
 
+    def __init__(self, limit=10):
+        # DLL to store the order
+        self.order = DoublyLinkedList()
+        # Dic store key value pairs
+        self.storage = dict()
+        # current size
+        self.size = 0
+        # limit
+        self.limit = limit
     """
     Retrieves the value associated with the given key. Also
     needs to move the key-value pair to the end of the order
@@ -16,8 +26,17 @@ class LRUCache:
     Returns the value associated with the key or None if the
     key-value pair doesn't exist in the cache.
     """
+
     def get(self, key):
-        pass
+        # pull value out of the dict using the key
+        if key in self.storage:
+            node = self.storage[key]
+            self.order.move_to_front(node)
+            return node.value[1]
+        # update position in the list
+        # or return none
+        else:
+            return None
 
     """
     Adds the given key-value pair to the cache. The newly-
@@ -29,5 +48,28 @@ class LRUCache:
     want to overwrite the old value associated with the key with
     the newly-specified value.
     """
+
     def set(self, key, value):
-        pass
+        # complete first if youdon't set you can't get
+
+        # if already exists,overwrite value - updatedict
+        if key in self.storage:
+            # update dict
+            node = self.storage[key]
+            node.value = (key, value)
+        # mark as most recentlyused - put it in the head of the DLL
+            self.order.move_to_front(node)
+            return
+
+    # if at max capacity, dumpoldest- remove from tail ofDLL
+        if self.size == self.limit:
+            # dump the oldest:
+            # remove from linked list
+            # remove it from the dict
+            del self.storage[self.order.tail.value[0]]
+            self.order.remove_from_tail()
+            self.size -= 1
+    # Add Pair to cache - add to dict and add to nodes/DLL
+        self.order.add_to_head((key, value))
+        self.storage[key] = self.order.head
+        self.size += 1
