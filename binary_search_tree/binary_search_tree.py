@@ -1,23 +1,65 @@
-import sys
-sys.path.append('../queue_and_stack')
-from dll_queue import Queue
-from dll_stack import Stack
+# from dll_stack import Stack
+# from dll_queue import Queue
+# import sys
+# sys.path.append('../queue_and_stack')
+
+# Questions:
+# can binary search trees contain negative numbers, only ints?
+# >= goes right.
+# need to traverse to delete and find
+# when deleting the next smallest child becomes the parent
 
 
 class BinarySearchTree:
-    def __init__(self, value):
+    def __init__(self, value):  # just using value. key is value
         self.value = value
         self.left = None
         self.right = None
+        self.root = None
 
     # Insert the given value into the tree
+    # need to traverse to find spot to insert
     def insert(self, value):
-        pass
+        if self.root is None:
+            self.root = value
+        else:
+            self._insert(value, self.root)
+
+    def _insert(self, value, cur_node):
+        if value < cur_node.value:
+            if cur_node.left is None:
+                cur_node.left = value
+            else:
+                self._insert(value, cur_node.left)
+
+        elif value > cur_node.value:
+            if cur_node.right is None:
+                cur_node.right = value
+            else:
+                self._insert(value, cur_node.right)
+        else:
+            print("value is already present.")
 
     # Return True if the tree contains the value
     # False if it does not
+    # start from root and traverse the tree. we can stop at the first instance of a value. we know its not found if we get to a node that does not have children
+
     def contains(self, target):
-        pass
+        if self.root:
+            is_found = self._find(target, self.root)
+            if is_found:
+                return True
+            return False
+        else:
+            return None
+
+    def _find(self, target, cur_node):
+        if target > cur_node.target and cur_node.right:
+            return self._find(target, cur_node.right)
+        elif target < cur_node.target and cur_node.left:
+            return self._find(target, cur_node.left)
+        if target == cur_node.target:
+            return True
 
     # Return the maximum value found in the tree
     def get_max(self):
