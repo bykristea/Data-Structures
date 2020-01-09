@@ -20,46 +20,71 @@ class BinarySearchTree:
     # Insert the given value into the tree
     # need to traverse to find spot to insert
     def insert(self, value):
-        if self.root is None:
-            self.root = value
-        else:
-            self._insert(value, self.root)
-
-    def _insert(self, value, cur_node):
-        if value < cur_node.value:
-            if cur_node.left is None:
-                cur_node.left = value
+        if value < self.value:
+            if not self.left:
+                self.left = BinarySearchTree(value)
             else:
-                self._insert(value, cur_node.left)
+                self.left.insert(value)
 
-        elif value > cur_node.value:
-            if cur_node.right is None:
-                cur_node.right = value
+        if value >= self.value:
+            if not self.right:
+                self.right = BinarySearchTree(value)
             else:
-                self._insert(value, cur_node.right)
-        else:
-            print("value is already present.")
+                self.right.insert(value)
+        # if self.root is None:
+        #     self.root = value
+        # else:
+        #     self._insert(value, self.root)
+
+    # def _insert(self, value, cur_node):
+    #     if value < cur_node.value:
+    #         if cur_node.left is None:
+    #             cur_node.left = value
+    #         else:
+    #             self._insert(value, cur_node.left)
+
+    #     elif value > cur_node.value:
+    #         if cur_node.right is None:
+    #             cur_node.right = value
+    #         else:
+    #             self._insert(value, cur_node.right)
+    #     else:
+    #         print("value is already present.")
 
     # Return True if the tree contains the value
     # False if it does not
     # start from root and traverse the tree. we can stop at the first instance of a value. we know its not found if we get to a node that does not have children
 
     def contains(self, target):
-        if self.root:
-            is_found = self._find(target, self.root)
-            if is_found:
-                return True
-            return False
-        else:
-            return None
-
-    def _find(self, target, cur_node):
-        if target > cur_node.target and cur_node.right:
-            return self._find(target, cur_node.right)
-        elif target < cur_node.target and cur_node.left:
-            return self._find(target, cur_node.left)
-        if target == cur_node.target:
+        if target == self.value:
             return True
+        if target < self.value:
+            if self.left is None:
+                return False
+            else:
+                return self.left.contains(target)
+
+        else:
+            if self.right is None:
+                return False
+            else:
+                return self.right.contains(target)
+
+    #     if self.root:
+    #         is_found = self._find(target, self.root)
+    #         if is_found:
+    #             return True
+    #         return False
+    #     else:
+    #         return None
+
+    # def _find(self, target, cur_node):
+    #     if target > cur_node.target and cur_node.right:
+    #         return self._find(target, cur_node.right)
+    #     elif target < cur_node.target and cur_node.left:
+    #         return self._find(target, cur_node.left)
+    #     if target == cur_node.target:
+    #         return True
 
     # Return the maximum value found in the tree
     def get_max(self):
