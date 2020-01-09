@@ -26,30 +26,12 @@ class BinarySearchTree:
             else:
                 self.left.insert(value)
 
-        if value >= self.value:
+        # if value >= self.value:
+        else:
             if not self.right:
                 self.right = BinarySearchTree(value)
             else:
                 self.right.insert(value)
-        # if self.root is None:
-        #     self.root = value
-        # else:
-        #     self._insert(value, self.root)
-
-    # def _insert(self, value, cur_node):
-    #     if value < cur_node.value:
-    #         if cur_node.left is None:
-    #             cur_node.left = value
-    #         else:
-    #             self._insert(value, cur_node.left)
-
-    #     elif value > cur_node.value:
-    #         if cur_node.right is None:
-    #             cur_node.right = value
-    #         else:
-    #             self._insert(value, cur_node.right)
-    #     else:
-    #         print("value is already present.")
 
     # Return True if the tree contains the value
     # False if it does not
@@ -59,7 +41,7 @@ class BinarySearchTree:
         if target == self.value:
             return True
         if target < self.value:
-            if self.left is None:
+            if not self.left:
                 return False
             else:
                 return self.left.contains(target)
@@ -70,23 +52,8 @@ class BinarySearchTree:
             else:
                 return self.right.contains(target)
 
-    #     if self.root:
-    #         is_found = self._find(target, self.root)
-    #         if is_found:
-    #             return True
-    #         return False
-    #     else:
-    #         return None
-
-    # def _find(self, target, cur_node):
-    #     if target > cur_node.target and cur_node.right:
-    #         return self._find(target, cur_node.right)
-    #     elif target < cur_node.target and cur_node.left:
-    #         return self._find(target, cur_node.left)
-    #     if target == cur_node.target:
-    #         return True
-
     # Return the maximum value found in the tree
+
     def get_max(self):
         if self.right:
             return self.right.get_max()
@@ -102,13 +69,31 @@ class BinarySearchTree:
             self.left.for_each(cb)
         if self.right:
             self.right.for_each(cb)
+        # itertatively
+        #stack = Stack()
+        # stack.push(self)
 
+        # while stack.len() > 0:
+            # current_node = stack.pop()
+            # if current_node.right:
+            #     stack.push(current_node.right)
+            # if current_node.left:
+            #     stack.push(current_node.left)
+            # cb(current_node.value)
     # DAY 2 Project -----------------------
 
     # Print all the values in order from low to high
     # Hint:  Use a recursive, depth first traversal
+    # print the current node, go left if you can go right if you can
     def in_order_print(self, node):
-        pass
+
+        if self.left:
+            self.left.in_order_print(node)
+
+        # node(self.value)
+
+        if self.right:
+            self.right.in_order_print(node)
 
     # Print the value of every node, starting with the given node,
     # in an iterative breadth first traversal
